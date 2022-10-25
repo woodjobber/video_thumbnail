@@ -1,12 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'dart:io';
-
-import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 void main() => runApp(MyApp());
 
@@ -186,7 +185,7 @@ class _DemoHomeState extends State<DemoHome> {
   GenThumbnailImage _futreImage;
 
   String _tempDir;
-
+  var imagePicker = ImagePicker();
   @override
   void initState() {
     super.initState();
@@ -379,8 +378,8 @@ class _DemoHomeState extends State<DemoHome> {
           children: <Widget>[
             FloatingActionButton(
               onPressed: () async {
-                File video =
-                    await ImagePicker.pickVideo(source: ImageSource.camera);
+                var video =
+                    await imagePicker.getImage(source: ImageSource.camera);
                 setState(() {
                   _video.text = video.path;
                 });
@@ -393,8 +392,8 @@ class _DemoHomeState extends State<DemoHome> {
             ),
             FloatingActionButton(
               onPressed: () async {
-                File video =
-                    await ImagePicker.pickVideo(source: ImageSource.gallery);
+                var video =
+                    await imagePicker.getImage(source: ImageSource.gallery);
                 setState(() {
                   _video.text = video?.path;
                 });

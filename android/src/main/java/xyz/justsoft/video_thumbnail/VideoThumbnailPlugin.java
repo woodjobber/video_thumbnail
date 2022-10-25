@@ -175,23 +175,18 @@ public class VideoThumbnailPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     private void onResult(final Result result, final Object thumbnail, final boolean handled, final Exception e) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (!handled) {
-                    result.notImplemented();
-                    return;
-                }
+        if (!handled) {
+            result.notImplemented();
+            return;
+        }
 
-                if (e != null) {
-                    e.printStackTrace();
-                    result.error("exception", e.getMessage(), null);
-                    return;
-                }
+        if (e != null) {
+            e.printStackTrace();
+            result.error("exception", e.getMessage(), null);
+            return;
+        }
 
-                result.success(thumbnail);
-            }
-        });
+        result.success(thumbnail);
     }
 
     private static void runOnUiThread(Runnable runnable) {
